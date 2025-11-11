@@ -57,7 +57,7 @@ router.post('/signup',async(req,res)=>{
 });
 
 
-router.get("/profile", (req, res) => {
+router.get("/user/profile", (req, res) => {
   if (!req.user) {
     return res.redirect("/user/signin");
   }
@@ -67,13 +67,13 @@ router.get("/profile", (req, res) => {
 });
 
 
-router.post("/profile", upload.single("profileImage"), async (req, res) => {
+router.post("/user/profile", upload.single("profileImage"), async (req, res) => {
   if (!req.user) {
     return res.redirect("/user/signin");
   }
   
   try {
-    const profileImageURL = `/uploads/avatars/${req.file.filename}`;
+    const profileImageURL = `/Images/default.jpeg/${req.file.filename}`;
     
     await User.findByIdAndUpdate(req.user._id, { profileImageURL });
 
