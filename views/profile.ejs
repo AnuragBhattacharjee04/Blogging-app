@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include("./partials/head") %>
+    <title>My Profile</title>
+    <style>
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <%-include("./partials/nav") %>
+    
+    <div class="container mt-4" style="max-width: 600px;">
+        <div class="text-center">
+            <h3>My Profile</h3>
+            
+            <img 
+              src="<%= user.profileImageURL %>" 
+              class="profile-pic my-3"
+            >
+            
+            <h4><%= user.fullName %></h4>
+            <p class="text-muted"><%= user.email %></p>
+        </div>
+        
+        <hr>
+
+        <form 
+          action="/user/profile" 
+          method="POST" 
+          enctype="multipart/form-data"
+          class="mt-4"
+        >
+            <div class="mb-3">
+                <label for="profileImage" class="form-label">
+                  <strong>Update Profile Picture</strong>
+                </label>
+                <input 
+                  type="file" 
+                  class="form-control" 
+                  id="profileImage" 
+                  name="profileImage"
+                  required
+                >
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save New Picture</button>
+        </form>
+
+        <% if (locals.error) { %>
+            <div class="alert alert-danger mt-3" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+    </div>
+    
+    <%-include('./partials/scripts') %>     
+</body>
+</html>
